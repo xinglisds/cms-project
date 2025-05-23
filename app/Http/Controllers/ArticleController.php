@@ -15,6 +15,11 @@ class ArticleController extends Controller
     {
         $articles = Article::withCount('comments')->latest()->paginate(12);
         
+        // Check if this is for homepage or articles page
+        if (request()->route()->getName() === 'home') {
+            return view('home', compact('articles'));
+        }
+        
         return view('articles.index', compact('articles'));
     }
 

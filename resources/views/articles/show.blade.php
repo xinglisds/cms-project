@@ -1,68 +1,142 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $article->title }}
-        </h2>
-    </x-slot>
+    <div class="min-h-screen bg-gray-50">
+        <!-- Article Header -->
+        <div class="bg-white shadow-sm">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Breadcrumb -->
+                <nav class="mb-6">
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <a href="{{ route('home') }}" class="hover:text-gray-700">Home</a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <a href="{{ route('articles.index') }}" class="hover:text-gray-700">Articles</a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span class="text-gray-700">{{ $article->title }}</span>
+                    </div>
+                </nav>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <article class="p-6">
-                    @if($article->cover_image)
-                        <img src="{{ Storage::url($article->cover_image) }}" 
-                             alt="{{ $article->title }}"
-                             class="w-full h-64 object-cover rounded mb-6">
-                    @endif
+                <!-- Article Title and Meta -->
+                <header>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                        {{ $article->title }}
+                    </h1>
                     
-                    <header class="mb-6">
-                        <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $article->title }}</h1>
-                        
-                        <div class="flex items-center text-sm text-gray-500 space-x-4">
-                            <span>Published {{ $article->created_at->format('F d, Y') }}</span>
-                            @if($article->is_imported && $article->source_url)
-                                <span>•</span>
-                                <a href="{{ $article->source_url }}" 
-                                   target="_blank" 
-                                   class="text-blue-600 hover:text-blue-800">
-                                    View Original
-                                </a>
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div class="flex items-center space-x-4 text-sm text-gray-600">
+                            <time datetime="{{ $article->created_at->toISOString() }}">
+                                {{ $article->created_at->format('F j, Y') }}
+                            </time>
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                </svg>
+                                {{ $article->comments->count() }} {{ Str::plural('comment', $article->comments->count()) }}
+                            </span>
+                            @if($article->is_imported)
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    External Source
+                                </span>
                             @endif
                         </div>
-                    </header>
-                    
-                    <div class="prose prose-lg max-w-none mb-8">
+                        
+                        @if($article->is_imported && $article->source_url)
+                            <a href="{{ $article->source_url }}" 
+                               target="_blank" 
+                               class="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                View Original
+                                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        @endif
+                    </div>
+                </header>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden">
+                @if($article->cover_image)
+                    <div class="aspect-w-16 aspect-h-9">
+                        <img src="{{ Storage::url($article->cover_image) }}" 
+                             alt="{{ $article->title }}"
+                             class="w-full h-80 object-cover">
+                    </div>
+                @endif
+                
+                <div class="p-8 lg:p-12">
+                    <div class="prose prose-lg prose-blue max-w-none">
                         {!! nl2br(e($article->content)) !!}
                     </div>
-                </article>
-                
-                <!-- Comments Section -->
-                <div class="border-t border-gray-200 p-6">
-                    <h3 class="text-xl font-semibold mb-4">
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <div class="mt-12 bg-white rounded-lg shadow-sm overflow-hidden">
+                <div class="p-8 lg:p-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-8">
                         Comments ({{ $article->comments->count() }})
-                    </h3>
+                    </h2>
                     
                     @forelse($article->comments as $comment)
-                        <div class="border-b border-gray-100 pb-4 mb-4 last:border-b-0">
-                            <div class="flex items-center mb-2">
-                                <span class="font-medium text-gray-900">{{ $comment->user->name }}</span>
-                                <span class="text-gray-500 text-sm ml-2">
-                                    {{ $comment->created_at->diffForHumans() }}
-                                </span>
+                        <div class="flex space-x-4 py-6 {{ !$loop->last ? 'border-b border-gray-200' : '' }}">
+                            <!-- Avatar -->
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-medium text-sm">
+                                        {{ strtoupper(substr($comment->user->name, 0, 1)) }}
+                                    </span>
+                                </div>
                             </div>
-                            <p class="text-gray-700">{{ $comment->content }}</p>
+                            
+                            <!-- Comment Content -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-sm font-medium text-gray-900">
+                                        {{ $comment->user->name }}
+                                    </h4>
+                                    <time class="text-sm text-gray-500" datetime="{{ $comment->created_at->toISOString() }}">
+                                        {{ $comment->created_at->diffForHumans() }}
+                                    </time>
+                                </div>
+                                <p class="text-gray-700 leading-relaxed">{{ $comment->content }}</p>
+                            </div>
                         </div>
                     @empty
-                        <p class="text-gray-500">No comments yet.</p>
+                        <div class="text-center py-12">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">No comments yet</h3>
+                            <p class="mt-2 text-gray-500">Be the first to share your thoughts!</p>
+                        </div>
                     @endforelse
                 </div>
             </div>
-            
-            <!-- Back to Articles -->
-            <div class="mt-6">
+
+            <!-- Navigation -->
+            <div class="mt-8 flex items-center justify-between">
                 <a href="{{ route('articles.index') }}" 
-                   class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                    ← Back to Articles
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200">
+                    <svg class="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Articles
+                </a>
+                
+                <a href="{{ route('home') }}" 
+                   class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-medium text-white hover:bg-blue-700 transition-colors duration-200">
+                    Home
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
                 </a>
             </div>
         </div>
