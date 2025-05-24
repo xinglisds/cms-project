@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,17 @@ Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articl
 Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
     ->name('comments.store')
     ->middleware('auth');
+
+// Admin routes - protected by admin middleware
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+});
+
+// Test route for admin access
+Route::get('/test-admin', function () {
+    return view('test-admin');
+})->name('test.admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

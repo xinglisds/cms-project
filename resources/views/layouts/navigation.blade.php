@@ -20,6 +20,13 @@
                     <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.*')">
                         {{ __('Articles') }}
                     </x-nav-link>
+                    @auth
+                        @if(Auth::user()->isAdmin())
+                            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')" class="text-red-600 hover:text-red-800">
+                                {{ __('Admin Panel') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -87,6 +94,13 @@
             <x-responsive-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.*')">
                 {{ __('Articles') }}
             </x-responsive-nav-link>
+            @auth
+                @if(Auth::user()->isAdmin())
+                    <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')">
+                        {{ __('Admin Panel') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
