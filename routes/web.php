@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage shows article list
@@ -21,6 +22,9 @@ Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articl
 Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
     ->name('comments.store')
     ->middleware('auth');
+
+// Newsletter subscription route
+Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');
 
 // Admin routes - protected by admin middleware
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

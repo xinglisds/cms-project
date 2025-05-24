@@ -15,6 +15,33 @@
             </div>
         </div>
 
+        <!-- Success/Error Messages -->
+        @if (session('success'))
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="flex">
+                        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="ml-2 text-sm text-green-600">{{ session('success') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <div class="flex">
+                        <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <p class="ml-2 text-sm text-red-600">{{ session('error') }}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <!-- Articles Section -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             @if($articles->count() > 0)
@@ -120,6 +147,49 @@
                     @endauth
                 </div>
             @endif
+        </div>
+
+        <!-- Newsletter Subscription Section -->
+        <div class="bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-white sm:text-4xl">
+                        Stay Updated
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-300">
+                        Subscribe to our newsletter and never miss our latest articles and insights.
+                    </p>
+                    
+                    <form action="{{ route('subscribe') }}" method="POST" class="mt-8 sm:flex sm:max-w-md sm:mx-auto">
+                        @csrf
+                        <div class="flex-1 min-w-0">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:rounded-r-none" 
+                                   placeholder="Enter your email address"
+                                   value="{{ old('email') }}"
+                                   required>
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-0 sm:flex-shrink-0">
+                            <button type="submit" 
+                                    class="w-full px-6 py-3 border border-transparent text-base font-medium rounded-r-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 sm:rounded-l-none">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                    
+                    @error('email')
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                    
+                    <p class="mt-4 text-sm text-gray-400">
+                        We care about your privacy. Read our 
+                        <a href="#" class="text-blue-400 hover:text-blue-300 underline">privacy policy</a>.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout> 
