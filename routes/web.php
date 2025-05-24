@@ -26,6 +26,14 @@ Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    
+    // Article management
+    Route::get('/articles', [AdminController::class, 'articles'])->name('articles');
+    Route::get('/articles/create', [AdminController::class, 'createArticle'])->name('articles.create');
+    Route::post('/articles', [AdminController::class, 'storeArticle'])->name('articles.store');
+    Route::get('/articles/{article}/edit', [AdminController::class, 'editArticle'])->name('articles.edit');
+    Route::put('/articles/{article}', [AdminController::class, 'updateArticle'])->name('articles.update');
+    Route::delete('/articles/{article}', [AdminController::class, 'destroyArticle'])->name('articles.destroy');
 });
 
 // Test route for admin access

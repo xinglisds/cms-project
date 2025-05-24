@@ -34,8 +34,8 @@
                             <div>
                                 <h4 class="text-blue-800 font-medium">Development Status</h4>
                                 <p class="text-blue-700 text-sm mt-1">
-                                    Some management features are still under development and will be available in upcoming tasks (Task 10: Article Management, Task 17: Comment Management).
-                                    Currently available: Dashboard and basic admin panel structure.
+                                    ✅ Task 10 completed! Article management with full CRUD and image upload is now available.
+                                    Coming soon: Task 17 (Comment Management). Currently available: Dashboard, Article Management.
                                 </p>
                             </div>
                         </div>
@@ -51,14 +51,14 @@
                                 </svg>
                                 <h3 class="font-semibold text-blue-900">Articles</h3>
                             </div>
-                            <p class="text-blue-700 text-sm mb-3">View all articles and content</p>
-                            <a href="{{ route('articles.index') }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
-                                View Articles
+                            <p class="text-blue-700 text-sm mb-3">Manage all articles and content</p>
+                            <a href="{{ route('admin.articles') }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                Manage Articles
                                 <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <p class="text-xs text-blue-500 mt-2">Management features coming in Task 10</p>
+                            <p class="text-xs text-blue-500 mt-2">✅ Full CRUD available</p>
                         </div>
 
                         <!-- Comments Management -->
