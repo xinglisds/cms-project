@@ -26,10 +26,8 @@ class ArticleController extends Controller
     /**
      * Display the specified article.
      */
-    public function show(string $slug): View
+    public function show(Article $article): View
     {
-        $article = Article::where('slug', $slug)->firstOrFail();
-        
         // Load comments with user relationship for displaying
         $article->load(['comments' => function ($query) {
             $query->with('user')->latest();
