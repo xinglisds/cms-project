@@ -112,7 +112,77 @@
                     </div>
                 @endif
 
-                <!-- Pagination -->                <div class="flex justify-center">                    {{ $articles->links() }}                </div>                <!-- Call to Action -->                <div class="text-center mt-16">                    <a href="{{ route('articles.index') }}"                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">                        View All Articles                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>                        </svg>                    </a>                </div>                <!-- Newsletter Subscription Card -->                <div class="mt-16 mb-16">                    <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">                        <div class="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>                            </svg>                        </div>                                                <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">                            Stay Updated                        </h2>                        <p class="text-lg text-gray-600 mb-8">                            Subscribe to our newsletter and never miss our latest articles and insights.                        </p>                                                <form action="{{ route('subscribe') }}" method="POST" class="max-w-md mx-auto">                            @csrf                            <div class="flex flex-col sm:flex-row gap-3">                                <div class="flex-1">                                    <label for="email" class="sr-only">Email address</label>                                    <input type="email"                                            id="email"                                            name="email"                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"                                            placeholder="Enter your email address"                                           value="{{ old('email') }}"                                           required>                                </div>                                <div>                                    <button type="submit"                                             class="w-full sm:w-auto px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 flex items-center justify-center">                                        <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>                                        </svg>                                        Subscribe                                    </button>                                </div>                            </div>                                                        @error('email')                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>                            @enderror                        </form>                                                <div class="mt-6 pt-6 border-t border-gray-200">                            <p class="text-sm text-gray-500">                                <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>                                </svg>                                We respect your privacy. Unsubscribe at any time.                            </p>                        </div>                    </div>                </div>
+                <!-- Pagination -->
+                <div class="flex justify-center">
+                    {{ $articles->links() }}
+                </div>
+
+                <!-- Call to Action -->
+                <div class="text-center mt-16">
+                    <a href="{{ route('articles.index') }}" 
+                       class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                        View All Articles
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Newsletter Subscription Card -->
+                <div class="mt-16 mb-16">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 text-center">
+                        <div class="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        
+                        <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+                            Stay Updated
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-8">
+                            Subscribe to our newsletter and never miss our latest articles and insights.
+                        </p>
+                        
+                        <form action="{{ route('subscribe') }}" method="POST" class="max-w-md mx-auto">
+                            @csrf
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <div class="flex-1">
+                                    <label for="email" class="sr-only">Email address</label>
+                                    <input type="email" 
+                                           id="email" 
+                                           name="email" 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                                           placeholder="Enter your email address"
+                                           value="{{ old('email') }}"
+                                           required>
+                                </div>
+                                <div>
+                                    <button type="submit" 
+                                            class="w-full sm:w-auto px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 flex items-center justify-center">
+                                        <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                        </svg>
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            @error('email')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </form>
+                        
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <p class="text-sm text-gray-500">
+                                <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                We respect your privacy. Unsubscribe at any time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             @else
                 <!-- Empty State -->
                 <div class="text-center py-16">
