@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -120,5 +121,28 @@ class AdminController extends Controller
 
         return redirect()->route('admin.articles')
             ->with('success', 'Article deleted successfully!');
+    }
+
+    /**
+     * Display comments management page.
+     */
+    public function comments(): View
+    {
+        $comments = Comment::with(['user', 'article'])
+            ->latest()
+            ->paginate(20);
+        
+        return view('admin.comments.index', compact('comments'));
+    }
+
+    /**
+     * Delete a comment.
+     */
+    public function destroyComment(Comment $comment): RedirectResponse
+    {
+        $comment->delete();
+
+        return redirect()->route('admin.comments')
+            ->with('success', 'Comment deleted successfully!');
     }
 } 

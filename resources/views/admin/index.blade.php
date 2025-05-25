@@ -34,9 +34,11 @@
                             <div>
                                 <h4 class="text-blue-800 font-medium">Development Status</h4>
                                 <p class="text-blue-700 text-sm mt-1">
-                                    ✅ Task 13 completed! Ad management system is now available.
-                                    ✅ Task 10 completed! Article management with full CRUD and image upload is now available.
-                                    Coming soon: Task 17 (Comment Management). Currently available: Dashboard, Article Management, Ad Management.
+                                    ✅ Task 10 completed! Article management with full CRUD and image upload is now available.<br>
+                                    ✅ Task 13 completed! Ad management system is now available.<br>
+                                    ✅ Task 15 completed! Dynamic SEO tags support added.<br>
+                                    ✅ Task 17 completed! Comment management panel is now available.<br>
+                                    Available features: Dashboard, Article Management, Ad Management, Comment Management.
                                 </p>
                             </div>
                         </div>
@@ -81,21 +83,21 @@
                         </div>
 
                         <!-- Comments Management -->
-                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <div class="bg-orange-50 rounded-lg p-4 border border-orange-200">
                             <div class="flex items-center mb-3">
-                                <svg class="w-6 h-6 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-orange-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                                 </svg>
-                                <h3 class="font-semibold text-gray-700">Comments</h3>
+                                <h3 class="font-semibold text-orange-900">Comments</h3>
                             </div>
-                            <p class="text-gray-600 text-sm mb-3">Moderate user comments</p>
-                            <span class="inline-flex items-center text-gray-400 text-sm font-medium cursor-not-allowed">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            <p class="text-orange-700 text-sm mb-3">Moderate user comments</p>
+                            <a href="{{ route('admin.comments') }}" class="inline-flex items-center text-orange-600 hover:text-orange-800 text-sm font-medium">
+                                Manage Comments
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
-                                Coming Soon
-                            </span>
-                            <p class="text-xs text-gray-400 mt-2">Available in Task 17</p>
+                            </a>
+                            <p class="text-xs text-orange-500 mt-2">✅ Delete & Moderate available</p>
                         </div>
 
                         <!-- System Info -->

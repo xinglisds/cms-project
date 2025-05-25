@@ -40,6 +40,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/articles/{article}', [AdminController::class, 'updateArticle'])->name('articles.update');
     Route::delete('/articles/{article}', [AdminController::class, 'destroyArticle'])->name('articles.destroy');
     
+    // Comment management
+    Route::get('/comments', [AdminController::class, 'comments'])->name('comments');
+    Route::delete('/comments/{comment}', [AdminController::class, 'destroyComment'])->name('comments.destroy');
+    
     // Ad management
     Route::resource('ads', AdController::class);
 });
