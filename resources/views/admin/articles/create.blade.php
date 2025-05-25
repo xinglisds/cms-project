@@ -4,10 +4,16 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Create New Article') }}
             </h2>
-            <a href="{{ route('admin.articles') }}" 
-               class="text-sm text-blue-600 hover:text-blue-800">
-                Back to Articles
-            </a>
+            <div class="flex space-x-2">
+                <a href="{{ route('admin.articles') }}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    Back to Articles
+                </a>
+                <a href="{{ route('admin.index') }}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    Back to Admin Panel
+                </a>
+            </div>
         </div>
     </x-slot>
 

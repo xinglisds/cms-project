@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\Admin\AdController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage shows article list
@@ -38,6 +39,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/articles/{article}/edit', [AdminController::class, 'editArticle'])->name('articles.edit');
     Route::put('/articles/{article}', [AdminController::class, 'updateArticle'])->name('articles.update');
     Route::delete('/articles/{article}', [AdminController::class, 'destroyArticle'])->name('articles.destroy');
+    
+    // Ad management
+    Route::resource('ads', AdController::class);
 });
 
 // Test route for admin access

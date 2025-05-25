@@ -6,12 +6,16 @@
             </h2>
             <div class="flex space-x-2">
                 <a href="{{ route('articles.show', $article->slug) }}" 
-                   class="text-sm text-green-600 hover:text-green-800">
+                   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
                     View Article
                 </a>
                 <a href="{{ route('admin.articles') }}" 
-                   class="text-sm text-blue-600 hover:text-blue-800">
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
                     Back to Articles
+                </a>
+                <a href="{{ route('admin.index') }}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    Back to Admin Panel
                 </a>
             </div>
         </div>

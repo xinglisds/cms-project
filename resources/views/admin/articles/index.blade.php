@@ -10,7 +10,7 @@
                     Create New Article
                 </a>
                 <a href="{{ route('admin.index') }}" 
-                   class="text-sm text-blue-600 hover:text-blue-800">
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
                     Back to Admin Panel
                 </a>
             </div>

@@ -34,15 +34,16 @@
                             <div>
                                 <h4 class="text-blue-800 font-medium">Development Status</h4>
                                 <p class="text-blue-700 text-sm mt-1">
+                                    ✅ Task 13 completed! Ad management system is now available.
                                     ✅ Task 10 completed! Article management with full CRUD and image upload is now available.
-                                    Coming soon: Task 17 (Comment Management). Currently available: Dashboard, Article Management.
+                                    Coming soon: Task 17 (Comment Management). Currently available: Dashboard, Article Management, Ad Management.
                                 </p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Quick Actions Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <!-- Articles Management -->
                         <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
                             <div class="flex items-center mb-3">
@@ -59,6 +60,24 @@
                                 </svg>
                             </a>
                             <p class="text-xs text-blue-500 mt-2">✅ Full CRUD available</p>
+                        </div>
+
+                        <!-- Ad Management -->
+                        <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <div class="flex items-center mb-3">
+                                <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <h3 class="font-semibold text-green-900">Ads</h3>
+                            </div>
+                            <p class="text-green-700 text-sm mb-3">Upload and manage advertisements</p>
+                            <a href="{{ route('admin.ads.index') }}" class="inline-flex items-center text-green-600 hover:text-green-800 text-sm font-medium">
+                                Manage Ads
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <p class="text-xs text-green-500 mt-2">✅ Upload & Edit available</p>
                         </div>
 
                         <!-- Comments Management -->
