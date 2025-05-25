@@ -1,3 +1,19 @@
+@section('title', 'All Articles - ' . config('app.name'))
+
+@section('meta_description', 'Browse all articles on ' . config('app.name') . '. Discover the latest blog posts, news, and insights.')
+
+@section('meta_keywords', 'articles, blog, posts, news, insights')
+
+@section('canonical', route('articles.index'))
+
+@section('og_type', 'website')
+@section('og_title', 'All Articles - ' . config('app.name'))
+@section('og_description', 'Browse all articles on ' . config('app.name') . '. Discover the latest blog posts, news, and insights.')
+@section('og_url', route('articles.index'))
+
+@section('twitter_title', 'All Articles - ' . config('app.name'))
+@section('twitter_description', 'Browse all articles on ' . config('app.name') . '. Discover the latest blog posts, news, and insights.')
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">

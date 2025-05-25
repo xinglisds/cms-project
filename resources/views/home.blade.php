@@ -1,3 +1,19 @@
+@section('title', config('app.name') . ' - Latest Articles, Insights & Stories')
+
+@section('meta_description', 'Discover the latest articles, insights, and stories from our community of writers and contributors. Stay up to date with our newest content.')
+
+@section('meta_keywords', 'articles, blog, insights, stories, latest news, community, writers')
+
+@section('canonical', route('home'))
+
+@section('og_type', 'website')
+@section('og_title', config('app.name') . ' - Latest Articles, Insights & Stories')
+@section('og_description', 'Discover the latest articles, insights, and stories from our community of writers and contributors.')
+@section('og_url', route('home'))
+
+@section('twitter_title', config('app.name') . ' - Latest Articles, Insights & Stories')
+@section('twitter_description', 'Discover the latest articles, insights, and stories from our community of writers and contributors.')
+
 <x-app-layout>
     <div class="bg-gradient-to-b from-blue-50 to-white">
         <!-- Hero Section -->

@@ -1,3 +1,28 @@
+@section('title', $article->title . ' - ' . config('app.name'))
+
+@section('meta_description', Str::limit(strip_tags($article->content), 160))
+
+@section('meta_keywords', 'article, blog, ' . Str::slug($article->title, ' '))
+
+@section('canonical', route('articles.show', $article->slug))
+
+@section('og_type', 'article')
+@section('og_title', $article->title)
+@section('og_description', Str::limit(strip_tags($article->content), 200))
+@section('og_url', route('articles.show', $article->slug))
+@if($article->cover_image)
+    @section('og_image', asset('storage/' . $article->cover_image))
+@endif
+
+@section('twitter_title', $article->title)
+@section('twitter_description', Str::limit(strip_tags($article->content), 200))
+@if($article->cover_image)
+    @section('twitter_image', asset('storage/' . $article->cover_image))
+@endif
+
+@section('article_published_time', $article->created_at->toISOString())
+@section('article_modified_time', $article->updated_at->toISOString())
+
 <x-app-layout>
     <div class="min-h-screen bg-gray-50">
         <!-- Article Header -->
