@@ -6,14 +6,15 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage shows article list
 Route::get('/', [ArticleController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // Article routes
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
@@ -23,6 +24,13 @@ Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articl
 Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
     ->name('comments.store')
     ->middleware('auth');
+
+// User comment management routes
+Route::middleware('auth')->group(function () {
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
 
 // Newsletter subscription route
 Route::post('/subscribe', [SubscriberController::class, 'store'])->name('subscribe');

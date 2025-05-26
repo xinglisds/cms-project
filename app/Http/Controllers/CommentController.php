@@ -7,6 +7,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class CommentController extends Controller
 {
@@ -34,5 +35,56 @@ class CommentController extends Controller
 
         return redirect()->route('articles.show', $article->slug)
             ->with('success', 'Comment added successfully!');
+    }
+
+    /**
+     * Show the form for editing the specified comment.
+     */
+    public function edit(Comment $comment): View
+    {
+        // Check if user owns this comment
+        if ($comment->user_id !== Auth::id()) {
+            abort(403, 'You can only edit your own comments.');
+        }
+
+        return view('comments.edit', compact('comment'));
+    }
+
+    /**
+     * Update the specified comment in storage.
+     */
+    public function update(Request $request, Comment $comment): RedirectResponse
+    {
+        // Check if user owns this comment
+        if ($comment->user_id !== Auth::id()) {
+            abort(403, 'You can only edit your own comments.');
+        }
+
+        // Validate the comment content
+        $validated = $request->validate([
+            'content' => 'required|string|max:1000|min:3',
+        ]);
+
+        // Update the comment
+        $comment->update($validated);
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Comment updated successfully!');
+    }
+
+    /**
+     * Remove the specified comment from storage.
+     */
+    public function destroy(Comment $comment): RedirectResponse
+    {
+        // Check if user owns this comment
+        if ($comment->user_id !== Auth::id()) {
+            abort(403, 'You can only delete your own comments.');
+        }
+
+        $comment->delete();
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Comment deleted successfully!');
     }
 } 
