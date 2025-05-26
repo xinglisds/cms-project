@@ -68,7 +68,7 @@
                                                 <div class="flex items-center">
                                                     @if($article->cover_image)
                                                         <img class="h-12 w-12 rounded-lg object-cover mr-4" 
-                                                             src="{{ asset('storage/' . $article->cover_image) }}" 
+                                                             src="{{ Storage::url($article->cover_image) }}" 
                                                              alt="Cover">
                                                     @else
                                                         <div class="h-12 w-12 rounded-lg bg-gray-200 mr-4 flex items-center justify-center">

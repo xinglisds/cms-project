@@ -5,10 +5,8 @@
                 {{ __('Admin Dashboard') }}
             </h2>
             <div class="flex space-x-2">
-                <span class="text-sm text-green-600 bg-green-100 px-3 py-1 rounded-full">
-                    Admin Access
-                </span>
-                <a href="{{ route('admin.index') }}" class="text-sm text-blue-600 hover:text-blue-800">
+                <a href="{{ route('admin.index') }}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
                     Back to Admin Panel
                 </a>
             </div>
@@ -24,7 +22,7 @@
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-8 h-8 text-black-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                             </div>

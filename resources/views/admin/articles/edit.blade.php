@@ -49,17 +49,15 @@
 
                         <!-- Current Cover Image -->
                         @if($article->cover_image)
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Current Cover Image
-                                </label>
+                            <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Current cover image:</p>
                                 <div class="flex items-center space-x-4">
-                                    <img src="{{ asset('storage/' . $article->cover_image) }}" 
+                                    <img src="{{ Storage::url($article->cover_image) }}" 
                                          alt="Current cover" 
-                                         class="h-20 w-auto rounded-lg shadow-sm">
-                                    <div class="text-sm text-gray-500">
-                                        <p>{{ basename($article->cover_image) }}</p>
-                                        <p>Upload a new image to replace this one</p>
+                                         class="w-20 h-20 object-cover rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">{{ basename($article->cover_image) }}</p>
+                                        <p class="text-xs text-gray-500">Click "Choose file" to replace</p>
                                     </div>
                                 </div>
                             </div>

@@ -55,7 +55,7 @@ class AdController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('ads', 'public');
+            $validated['image'] = $request->file('image')->store('ads');
         }
 
         Ad::create($validated);
@@ -97,9 +97,9 @@ class AdController extends Controller
         if ($request->hasFile('image')) {
             // Delete old image
             if ($ad->image) {
-                Storage::disk('public')->delete($ad->image);
+                Storage::delete($ad->image);
             }
-            $validated['image'] = $request->file('image')->store('ads', 'public');
+            $validated['image'] = $request->file('image')->store('ads');
         }
 
         $ad->update($validated);
@@ -115,7 +115,7 @@ class AdController extends Controller
     {
         // Delete image file
         if ($ad->image) {
-            Storage::disk('public')->delete($ad->image);
+            Storage::delete($ad->image);
         }
 
         $ad->delete();

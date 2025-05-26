@@ -11,13 +11,13 @@
 @section('og_description', Str::limit(strip_tags($article->content), 200))
 @section('og_url', route('articles.show', $article->slug))
 @if($article->cover_image)
-    @section('og_image', asset('storage/' . $article->cover_image))
+    @section('og_image', Storage::url($article->cover_image))
 @endif
 
 @section('twitter_title', $article->title)
 @section('twitter_description', Str::limit(strip_tags($article->content), 200))
 @if($article->cover_image)
-    @section('twitter_image', asset('storage/' . $article->cover_image))
+    @section('twitter_image', Storage::url($article->cover_image))
 @endif
 
 @section('article_published_time', $article->created_at->toISOString())
