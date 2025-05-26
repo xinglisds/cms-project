@@ -44,6 +44,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/comments', [AdminController::class, 'comments'])->name('comments');
     Route::delete('/comments/{comment}', [AdminController::class, 'destroyComment'])->name('comments.destroy');
     
+    // Newsletter management
+    Route::get('/subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
+    Route::post('/subscribers', [AdminController::class, 'storeSubscriber'])->name('subscribers.store');
+    Route::delete('/subscribers/{subscriber}', [AdminController::class, 'destroySubscriber'])->name('subscribers.destroy');
+    
     // Ad management
     Route::resource('ads', AdController::class);
 });

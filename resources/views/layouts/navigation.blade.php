@@ -22,7 +22,7 @@
                     </x-nav-link>
                     @auth
                         @if(Auth::user()->isAdmin())
-                            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')" class="text-red-600 hover:text-red-800">
+                            <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')">
                                 {{ __('Admin Panel') }}
                             </x-nav-link>
                         @endif

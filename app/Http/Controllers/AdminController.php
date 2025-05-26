@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -144,5 +145,41 @@ class AdminController extends Controller
 
         return redirect()->route('admin.comments')
             ->with('success', 'Comment deleted successfully!');
+    }
+
+    /**
+     * Display newsletter subscribers management page.
+     */
+    public function subscribers(): View
+    {
+        $subscribers = Subscriber::latest()->paginate(20);
+        
+        return view('admin.subscribers.index', compact('subscribers'));
+    }
+
+    /**
+     * Store a new newsletter subscriber.
+     */
+    public function storeSubscriber(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|max:255|unique:subscribers,email',
+        ]);
+
+        Subscriber::create($validated);
+
+        return redirect()->route('admin.subscribers')
+            ->with('success', 'Subscriber added successfully!');
+    }
+
+    /**
+     * Delete a newsletter subscriber.
+     */
+    public function destroySubscriber(Subscriber $subscriber): RedirectResponse
+    {
+        $subscriber->delete();
+
+        return redirect()->route('admin.subscribers')
+            ->with('success', 'Subscriber deleted successfully!');
     }
 } 
