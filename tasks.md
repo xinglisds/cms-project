@@ -1,4 +1,4 @@
-### 🧱 Laravel CMS 构建任务清单（项目名称：cms-project）
+### 🧱 LiteCMS 构建任务清单（项目名称：cms-project）
 
 说明：每个任务是一个"最小可执行单元（atomic task）"，可被工程 LLM 单独执行并测试，任务拆分专注单一职责，具备明确输入、输出、验证标准。
 
@@ -156,19 +156,18 @@
 * **目标**：在 `/sitemap.xml` 输出所有文章 URL
 * **测试**：打开链接返回标准 XML 并可被 Google 识别
 
+---
 
-
-
-#### ✅  Task 19: Newsletter 控制面板
+#### ✅ Task 19: Newsletter 控制面板
 
 * **目标**：创建后台 Newsletter 管理界面 
             显示所有订阅邮箱列表
             支持新增订阅者手动录入表单 和 删除订阅者
 * **测试**：打开链接返回标准 XML 并可被 Google 识别
 
+---
 
-
-#### ✅  Task 20: 用户 Dashboard 功能权限
+#### ✅ Task 20: 用户 Dashboard 功能权限
 
 * **目标**：允许非管理员用户访问 /dashboard 页面
             显示该用户自己发布的评论列表
@@ -179,8 +178,9 @@
   点击"编辑"可修改评论内容并成功保存
   点击"删除"可移除评论，刷新页面不再显示
 
+---
 
-#### ✅  Task 21: 评论内容审核（使用 Google Perspective API）
+#### ✅ Task 21: 评论内容审核（使用 Google Perspective API）
 
 * **目标**：在用户提交评论时，调用 Google Perspective API 对评论文本进行审核，识别潜在的恶意内容（如 Toxicity、Insult 等）。若评分超过设定阈值（如 0.7），后端应拒绝评论并提示用户。
 用户点击"提交评论"

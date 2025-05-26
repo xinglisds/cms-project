@@ -3,7 +3,7 @@
 ## 📋 部署前准备
 
 ### 1. 服务账户设置
-- [ ] **PlanetScale**: 创建数据库并获取连接信息
+- [ ] **Railway**: 创建数据库并获取连接信息
 - [ ] **AWS S3**: 创建存储桶和IAM用户，获取访问密钥
 - [ ] **MailerSend**: 注册账户并获取API密钥
 - [ ] **Google Perspective API**: 获取API密钥
@@ -41,7 +41,7 @@
 #### 必需的环境变量
 - [ ] `APP_KEY`: `base64:6tpe+gZt9AqLBC3rZrocc9TISSEtNlHIorvmqBU6+a0=`
 - [ ] `APP_URL`: `https://your-app-name.onrender.com`
-- [ ] 所有数据库配置 (PlanetScale)
+- [ ] 所有数据库配置 (Railway)
 - [ ] 所有 AWS S3 配置
 - [ ] 所有 MailerSend 配置
 - [ ] Perspective API 密钥
@@ -87,9 +87,9 @@
 3. 检查 PHP 版本兼容性
 
 ### 数据库连接失败
-1. 确认 PlanetScale 连接信息正确
-2. 检查数据库用户权限
-3. 确认 SSL 配置正确
+1. 确认 Railway 连接信息正确
+2. 检查 Railway 数据库服务状态
+3. 验证数据库用户权限
 
 ### 文件上传失败
 1. 检查 AWS S3 权限配置
@@ -105,13 +105,13 @@
 
 如果遇到问题：
 1. 查看 Render 应用日志
-2. 检查各服务的状态页面
+2. 检查 Railway 数据库状态
 3. 参考官方文档
 4. 联系技术支持
 
 ## 🎉 部署完成
 
-恭喜！你的 Laravel CMS 项目已成功部署到生产环境！
+恭喜！你的 LiteCMS 项目已成功部署到生产环境！
 
 记住定期：
 - 备份数据库

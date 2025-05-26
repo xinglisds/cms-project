@@ -6,9 +6,13 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Dynamic Title -->
-        <title>@yield('title', config('app.name', 'Laravel'))</title>
+        <title>@yield('title', config('app.name', 'LiteCMS'))</title>
 
         <!-- SEO Meta Tags -->
+        <meta name="description" content="@yield('meta_description', 'A modern content management system built with LiteCMS')">
+        <meta name="keywords" content="@yield('meta_keywords', 'CMS, LiteCMS, Content Management')">
+        <meta name="author" content="@yield('author', config('app.name'))">
+        
         @hasSection('meta_description')
             <meta name="description" content="@yield('meta_description')">
         @endif
@@ -18,24 +22,12 @@
         @endif
 
         <!-- Open Graph Meta Tags -->
-        @hasSection('og_title')
-            <meta property="og:title" content="@yield('og_title')">
-        @endif
-        
-        @hasSection('og_description')
-            <meta property="og:description" content="@yield('og_description')">
-        @endif
-        
-        @hasSection('og_image')
-            <meta property="og:image" content="@yield('og_image')">
-        @endif
-        
-        @hasSection('og_url')
-            <meta property="og:url" content="@yield('og_url')">
-        @endif
-        
+        <meta property="og:title" content="@yield('og_title', config('app.name', 'LiteCMS'))">
+        <meta property="og:description" content="@yield('og_description', 'A modern content management system')">
         <meta property="og:type" content="@yield('og_type', 'website')">
-        <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
+        <meta property="og:url" content="@yield('og_url', request()->url())">
+        <meta property="og:image" content="@yield('og_image', asset('images/default-og-image.jpg'))">
+        <meta property="og:site_name" content="{{ config('app.name', 'LiteCMS') }}">
 
         <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">

@@ -1,9 +1,9 @@
-# 🚀 生产环境部署指南
+# LiteCMS 生产环境部署指南
 
-本指南将帮你将 Laravel CMS 项目部署到生产环境，使用以下技术栈：
+本指南将帮你将 LiteCMS 项目部署到生产环境，使用以下技术栈：
 - **应用托管**: Render
-- **数据库**: PlanetScale (MySQL)
-- **邮件服务**: MailerSend
+- **数据库**: Railway (MySQL/PostgreSQL)
+- **邮件服务**: Gmail SMTP
 - **文件存储**: AWS S3
 
 ## 📋 部署前准备
@@ -15,7 +15,7 @@
 composer require league/flysystem-aws-s3-v3
 
 # 安装 MailerSend 支持
-composer require mailersend/laravel
+composer require mailersend/laravel-driver
 ```
 
 ### 2. 更新 Laravel 配置
@@ -48,42 +48,79 @@ composer require mailersend/laravel
 ],
 ```
 
-## 🗄️ 1. PlanetScale 数据库设置
+## 🗄️ 1. Railway 数据库设置
 
-### 步骤 1: 创建 PlanetScale 数据库
-1. 访问 [PlanetScale](https://planetscale.com/)
-2. 创建新数据库
-3. 获取连接信息
+### 步骤 1: 创建 Railway 数据库
+1. 访问 [Railway](https://railway.app/)
+2. 使用 GitHub 账户登录
+3. 创建新项目
+4. 添加 MySQL 或 PostgreSQL 数据库服务
+5. 获取数据库连接信息
 
-### 步骤 2: 配置数据库连接
+### 步骤 2: 获取数据库连接信息
+在 Railway 控制台中：
+1. 进入你的数据库服务
+2. 点击 "Variables" 标签
+3. 复制以下连接信息：
+   - `MYSQL_HOST` (或 `PGHOST`)
+   - `MYSQL_PORT` (或 `PGPORT`) 
+   - `MYSQL_DATABASE` (或 `PGDATABASE`)
+   - `MYSQL_USER` (或 `PGUSER`)
+   - `MYSQL_PASSWORD` (或 `PGPASSWORD`)
+
+### 步骤 3: 配置数据库连接
+
+#### 使用 MySQL:
 ```env
 DB_CONNECTION=mysql
-DB_HOST=your-planetscale-host
+DB_HOST=your-railway-mysql-host
 DB_PORT=3306
-DB_DATABASE=your-database-name
-DB_USERNAME=your-username
-DB_PASSWORD=your-password
-DB_SSLMODE=require
+DB_DATABASE=railway
+DB_USERNAME=root
+DB_PASSWORD=your-mysql-password
 ```
 
-### 步骤 3: 运行迁移
+#### 使用 PostgreSQL:
+```env
+DB_CONNECTION=pgsql
+DB_HOST=your-railway-postgres-host
+DB_PORT=5432
+DB_DATABASE=railway
+DB_USERNAME=postgres
+DB_PASSWORD=your-postgres-password
+```
+
+### 步骤 4: 运行迁移
 ```bash
 php artisan migrate --force
 ```
 
-## 📧 2. MailerSend 邮件服务设置
+## 📧 2. Gmail SMTP 邮件服务设置
 
-### 步骤 1: 获取 MailerSend API 密钥
-1. 访问 [MailerSend](https://www.mailersend.com/)
-2. 创建账户并获取 API 密钥
-3. 验证发送域名
+### 步骤 1: 准备 Gmail 账户
+1. 访问 [Google 账户安全设置](https://myaccount.google.com/security)
+2. 启用两步验证
+3. 生成应用专用密码：
+   - 点击"应用专用密码"
+   - 选择"邮件"和"其他（自定义名称）"
+   - 输入名称：`LiteCMS`
+   - 复制生成的 16 位密码
 
 ### 步骤 2: 配置环境变量
 ```env
-MAIL_MAILER=mailersend
-MAILERSEND_API_KEY=your-mailersend-api-key
-MAIL_FROM_ADDRESS="noreply@yourdomain.com"
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-gmail@gmail.com
+MAIL_PASSWORD=your-16-digit-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your-gmail@gmail.com
 MAIL_FROM_NAME="CMS Project"
+```
+
+### 步骤 3: 测试邮件发送
+```bash
+php test_email.php
 ```
 
 ## ☁️ 3. AWS S3 文件存储设置
@@ -158,15 +195,24 @@ APP_DEBUG=false
 APP_URL=https://your-app-name.onrender.com
 ```
 
-#### 数据库配置
+#### 数据库配置 (Railway MySQL)
 ```
 DB_CONNECTION=mysql
-DB_HOST=your-planetscale-host
+DB_HOST=your-railway-mysql-host
 DB_PORT=3306
-DB_DATABASE=your-database-name
-DB_USERNAME=your-username
-DB_PASSWORD=your-password
-DB_SSLMODE=require
+DB_DATABASE=railway
+DB_USERNAME=root
+DB_PASSWORD=your-mysql-password
+```
+
+#### 数据库配置 (Railway PostgreSQL)
+```
+DB_CONNECTION=pgsql
+DB_HOST=your-railway-postgres-host
+DB_PORT=5432
+DB_DATABASE=railway
+DB_USERNAME=postgres
+DB_PASSWORD=your-postgres-password
 ```
 
 #### AWS S3 配置
@@ -235,8 +281,8 @@ php artisan migrate --force
 - 检查存储桶 CORS 配置
 
 ### 2. 数据库连接失败
-- 确认 PlanetScale 连接字符串
-- 检查 SSL 配置
+- 确认 Railway 连接信息正确
+- 检查数据库服务状态
 - 验证用户权限
 
 ### 3. 邮件发送失败
@@ -256,8 +302,8 @@ php artisan migrate --force
    - 使用强密码和复杂的 API 密钥
 
 2. **数据库安全**
-   - 启用 SSL 连接
    - 定期备份数据
+   - 监控数据库性能
 
 3. **文件存储安全**
    - 配置适当的 S3 权限
@@ -272,5 +318,5 @@ php artisan migrate --force
 
 如果遇到部署问题，可以：
 1. 检查 Render 部署日志
-2. 查看 Laravel 应用日志
+2. 查看 Railway 数据库状态
 3. 参考各服务的官方文档 
