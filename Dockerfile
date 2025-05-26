@@ -38,14 +38,17 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts --verbose
 # Copy package.json files
 COPY package*.json ./
 
-# Install Node.js dependencies
-RUN npm ci --only=production
+# Install Node.js dependencies (including devDependencies for build)
+RUN npm ci
 
 # Copy the rest of the application
 COPY . .
 
 # Build frontend assets
 RUN npm run build
+
+# Remove node_modules to save space (optional)
+RUN rm -rf node_modules
 
 # Set proper permissions
 RUN chmod -R 755 /var/www/storage \
