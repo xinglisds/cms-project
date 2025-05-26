@@ -61,7 +61,7 @@ class AdminController extends Controller
 
         // Handle cover image upload
         if ($request->hasFile('cover_image')) {
-            $validated['cover_image'] = $request->file('cover_image')->store('cover_images', 'public');
+            $validated['cover_image'] = $request->file('cover_image')->store('cover_images', config('filesystems.default'));
         }
 
         $validated['is_imported'] = false;
@@ -97,9 +97,9 @@ class AdminController extends Controller
         if ($request->hasFile('cover_image')) {
             // Delete old image if exists
             if ($article->cover_image) {
-                Storage::disk('public')->delete($article->cover_image);
+                Storage::disk(config('filesystems.default'))->delete($article->cover_image);
             }
-            $validated['cover_image'] = $request->file('cover_image')->store('cover_images', 'public');
+            $validated['cover_image'] = $request->file('cover_image')->store('cover_images', config('filesystems.default'));
         }
 
         $article->update($validated);
@@ -115,7 +115,7 @@ class AdminController extends Controller
     {
         // Delete cover image if exists
         if ($article->cover_image) {
-            Storage::disk('public')->delete($article->cover_image);
+            Storage::disk(config('filesystems.default'))->delete($article->cover_image);
         }
 
         $article->delete();
