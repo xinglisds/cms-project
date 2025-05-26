@@ -44,6 +44,10 @@ RUN npm ci
 # Copy the rest of the application
 COPY . .
 
+# Set environment for build
+ENV NODE_ENV=production
+ENV APP_ENV=production
+
 # Build frontend assets
 RUN npm run build
 
