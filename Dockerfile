@@ -1,5 +1,5 @@
-# Use PHP 8.1 with CLI
-FROM php:8.1-cli
+# Use PHP 8.2 with CLI (matching composer.json requirement)
+FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -12,10 +12,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
@@ -29,8 +28,12 @@ WORKDIR /var/www
 # Copy composer files first for better caching
 COPY composer.json composer.lock ./
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+# Set Composer environment variables
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_NO_INTERACTION=1
+
+# Install PHP dependencies with verbose output for debugging
+RUN composer install --no-dev --optimize-autoloader --no-scripts --verbose
 
 # Copy package.json files
 COPY package*.json ./
@@ -45,17 +48,11 @@ COPY . .
 RUN npm run build
 
 # Set proper permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
+RUN chmod -R 755 /var/www/storage \
     && chmod -R 755 /var/www/bootstrap/cache
 
 # Generate optimized autoloader
 RUN composer dump-autoload --optimize
-
-# Cache Laravel configurations (will be overridden by environment variables)
-RUN php artisan config:clear || true
-RUN php artisan route:clear || true
-RUN php artisan view:clear || true
 
 # Expose port
 EXPOSE 8080
