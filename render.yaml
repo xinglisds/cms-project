@@ -26,4 +26,6 @@ services:
       - key: CACHE_STORE
         value: database
       - key: QUEUE_CONNECTION
-        value: database 
+        value: database
+      - key: PHP_VERSION
+        value: "8.1" 
