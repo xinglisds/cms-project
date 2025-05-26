@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Services\PerspectiveApiService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,13 @@ use Illuminate\View\View;
 
 class CommentController extends Controller
 {
+    protected $perspectiveApi;
+
+    public function __construct(PerspectiveApiService $perspectiveApi)
+    {
+        $this->perspectiveApi = $perspectiveApi;
+    }
+
     /**
      * Store a newly created comment in storage.
      */
@@ -25,6 +33,17 @@ class CommentController extends Controller
         $validated = $request->validate([
             'content' => 'required|string|max:1000|min:3',
         ]);
+
+        // Analyze comment content with Perspective API
+        $analysis = $this->perspectiveApi->analyzeComment($validated['content']);
+        
+        // If comment is not allowed, return with error message
+        if (!$analysis['allowed']) {
+            $errorMessage = $this->perspectiveApi->getRejectionMessage($analysis['scores']);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $errorMessage);
+        }
 
         // Create the comment
         Comment::create([
@@ -64,6 +83,17 @@ class CommentController extends Controller
         $validated = $request->validate([
             'content' => 'required|string|max:1000|min:3',
         ]);
+
+        // Analyze comment content with Perspective API
+        $analysis = $this->perspectiveApi->analyzeComment($validated['content']);
+        
+        // If comment is not allowed, return with error message
+        if (!$analysis['allowed']) {
+            $errorMessage = $this->perspectiveApi->getRejectionMessage($analysis['scores']);
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $errorMessage);
+        }
 
         // Update the comment
         $comment->update($validated);

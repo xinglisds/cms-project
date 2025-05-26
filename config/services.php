@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'perspective' => [
+        'api_key' => env('PERSPECTIVE_API_KEY'),
+    ],
+
 ];
